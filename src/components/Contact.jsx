@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Send, MessageSquare, Phone } from 'lucide-react';
 import Magnetic from './Magnetic';
+import { getPerson, getSiteContact } from '../lib/portfolioData';
 
 const GithubIcon = (props) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -19,6 +20,8 @@ const LinkedinIcon = (props) => (
 );
 
 export default function Contact() {
+  const person = getPerson();
+  const site = getSiteContact();
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
 
@@ -54,11 +57,10 @@ export default function Contact() {
           <div className="lg:col-span-5 flex flex-col justify-between h-full">
             <div>
               <h4 className="text-2xl font-outfit font-bold text-white mb-6">
-                Let's build something people actually use.
+                {site.headline}
               </h4>
               <p className="text-white/60 leading-relaxed mb-8">
-                Looking for a React Native engineer who ships production iOS & Android apps,
-                owns CI/CD, and cares about performance? Reach out.
+                {site.body}
               </p>
 
               <div className="space-y-6 mb-12">
@@ -69,10 +71,10 @@ export default function Contact() {
                   <div>
                     <span className="text-[10px] font-mono uppercase text-white/40 block">Email Address</span>
                     <a
-                      href="mailto:kshitij.durgesh@gmail.com"
+                      href={`mailto:${person.email}`}
                       className="text-sm font-bold text-white hover:text-accentOrange transition-colors cursor-none"
                     >
-                      kshitij.durgesh@gmail.com
+                      {person.email}
                     </a>
                   </div>
                 </div>
@@ -84,10 +86,10 @@ export default function Contact() {
                   <div>
                     <span className="text-[10px] font-mono uppercase text-white/40 block">Phone</span>
                     <a
-                      href="tel:+918287159748"
+                      href={person.phoneHref}
                       className="text-sm font-bold text-white hover:text-accentOrange transition-colors cursor-none"
                     >
-                      +91-8287159748
+                      {person.phone}
                     </a>
                   </div>
                 </div>
@@ -98,7 +100,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <span className="text-[10px] font-mono uppercase text-white/40 block">Current Location</span>
-                    <span className="text-sm font-bold text-white">Delhi, India</span>
+                    <span className="text-sm font-bold text-white">{person.locationShort}</span>
                   </div>
                 </div>
               </div>
@@ -109,7 +111,7 @@ export default function Contact() {
               <div className="flex items-center gap-4">
                 <Magnetic>
                   <a
-                    href="https://www.linkedin.com/in/kshitijkhowal/"
+                    href={person.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-12 h-12 rounded-2xl bg-white/5 border border-white/5 hover:border-[#0077b5]/50 hover:bg-[#0077b5]/10 flex items-center justify-center transition-all duration-300 text-white hover:text-[#0077b5] cursor-none"
@@ -121,7 +123,7 @@ export default function Contact() {
 
                 <Magnetic>
                   <a
-                    href="https://github.com/kshitijkhowal"
+                    href={person.github}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-12 h-12 rounded-2xl bg-white/5 border border-white/5 hover:border-white/50 hover:bg-white/10 flex items-center justify-center transition-all duration-300 text-white cursor-none"
@@ -145,9 +147,9 @@ export default function Contact() {
                   <div className="w-16 h-16 rounded-full bg-androidGreen/10 flex items-center justify-center mb-6 border border-androidGreen/20">
                     <MessageSquare className="w-8 h-8 text-androidGreen" />
                   </div>
-                  <h4 className="text-2xl font-outfit font-black text-white mb-2">Message Dispatched!</h4>
+                  <h4 className="text-2xl font-outfit font-black text-white mb-2">{site.form.successTitle}</h4>
                   <p className="text-sm text-white/50 max-w-sm leading-relaxed">
-                    Thanks for reaching out. Kshitij will respond via email as soon as possible.
+                    {site.form.successBody}
                   </p>
                 </motion.div>
               ) : (
@@ -206,7 +208,7 @@ export default function Contact() {
                         type="submit"
                         className="btn-primary w-full sm:w-auto px-6 py-3 flex items-center justify-center gap-2 cursor-none text-sm"
                       >
-                        Send Message
+                        {site.form.submitLabel}
                         <Send className="w-4 h-4 text-white" />
                       </button>
                     </Magnetic>

@@ -1,8 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Code, Cpu, Heart } from 'lucide-react';
+import { getAbout, getPerson, getPrimaryEducation } from '../lib/portfolioData';
 
 export default function About() {
+  const about = getAbout();
+  const person = getPerson();
+  const education = getPrimaryEducation();
+
   const cardVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: (custom) => ({
@@ -17,24 +22,21 @@ export default function About() {
     }),
   };
 
-  const highlights = [
-    { icon: '📱', label: 'React Native' },
-    { icon: '⚡', label: 'Expo' },
-    { icon: '🔥', label: 'Firebase' },
-    { icon: '🤖', label: 'AI Integration' },
-    { icon: '🚀', label: 'CI/CD' },
-    { icon: '🎨', label: 'Clean UI' },
-  ];
+  const educationLine = [
+    education.degree,
+    education.field,
+    education.minor ? `Minor ${education.minor}` : null,
+    education.gpa ? `${education.gpa} CGPA` : null,
+  ]
+    .filter(Boolean)
+    .join(' · ');
 
   return (
     <section id="about" className="py-24 relative overflow-hidden bg-darkBg">
-      {/* Background glows */}
       <div className="absolute top-1/2 left-0 w-[300px] h-[300px] rounded-full bg-androidGreen/5 blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 right-10 w-[250px] h-[250px] rounded-full bg-accentOrange/5 blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-
-        {/* Section Title */}
         <div className="flex flex-col mb-16">
           <h2 className="text-xs font-mono tracking-widest text-accentOrange uppercase mb-2">01 / Profile</h2>
           <h3 className="text-4xl md:text-5xl font-outfit font-black tracking-tight text-white">
@@ -43,13 +45,8 @@ export default function About() {
           <div className="w-12 h-[2px] bg-accentOrange mt-3" />
         </div>
 
-        {/* 2-Column Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-
-          {/* Left Side: First-Person Editorial Bio */}
           <div className="lg:col-span-7 flex flex-col gap-6">
-
-            {/* Main intro */}
             <motion.p
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -57,13 +54,12 @@ export default function About() {
               transition={{ duration: 0.8, ease: 'easeOut' }}
               className="text-2xl md:text-3xl font-outfit font-light text-white/90 leading-relaxed"
             >
-              Hey, I'm{' '}
-              <span className="text-accentOrange font-semibold">Kshitij Khowal</span>{' '}
-              — a <span className="text-androidGreen font-medium">React Native developer</span>{' '}
-              shipping production apps used by thousands on iOS and Android.
+              {about.introLead}{' '}
+              <span className="text-accentOrange font-semibold">{person.fullName}</span>{' '}
+              — <span className="text-androidGreen font-medium">{about.introRole}</span>{' '}
+              {about.introRest}
             </motion.p>
 
-            {/* Short punchy second line */}
             <motion.p
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -71,12 +67,9 @@ export default function About() {
               transition={{ duration: 0.8, ease: 'easeOut', delay: 0.15 }}
               className="text-base md:text-lg text-white/60 leading-relaxed"
             >
-              DTU Engineering Physics graduate (Minor in CS, CGPA 8.8). I care about
-              performance, clean releases, and shipping features that people actually use —
-              from feed optimization and payments to CI/CD and on-device AI.
+              {about.body}
             </motion.p>
 
-            {/* Highlights Pill Row */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -84,7 +77,7 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="flex flex-wrap gap-2 pt-2"
             >
-              {highlights.map((h, i) => (
+              {about.highlights.map((h, i) => (
                 <motion.span
                   key={h.label}
                   initial={{ opacity: 0, scale: 0.85 }}
@@ -98,13 +91,9 @@ export default function About() {
                 </motion.span>
               ))}
             </motion.div>
-
           </div>
 
-          {/* Right Side: Apple-style Info Cards */}
           <div className="lg:col-span-5 grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-
-            {/* Card: Location */}
             <motion.div
               custom={1}
               variants={cardVariants}
@@ -118,12 +107,11 @@ export default function About() {
               </div>
               <div>
                 <h4 className="text-xs font-mono text-white/40 uppercase mb-1">Where I'm Based</h4>
-                <p className="text-lg font-outfit font-bold text-white">Delhi, India</p>
-                <p className="text-xs text-white/40 mt-0.5">Available for remote & on-site roles</p>
+                <p className="text-lg font-outfit font-bold text-white">{person.locationShort}</p>
+                <p className="text-xs text-white/40 mt-0.5">{about.cards.locationNote}</p>
               </div>
             </motion.div>
 
-            {/* Card: Core Stack */}
             <motion.div
               custom={2}
               variants={cardVariants}
@@ -137,12 +125,11 @@ export default function About() {
               </div>
               <div>
                 <h4 className="text-xs font-mono text-white/40 uppercase mb-1">My Stack</h4>
-                <p className="text-sm font-outfit font-bold text-white leading-tight">React Native & Expo</p>
-                <p className="text-xs text-white/40 mt-0.5">JS · TS · Node · Firebase</p>
+                <p className="text-sm font-outfit font-bold text-white leading-tight">{about.cards.stackTitle}</p>
+                <p className="text-xs text-white/40 mt-0.5">{about.cards.stackSubtitle}</p>
               </div>
             </motion.div>
 
-            {/* Card: Education */}
             <motion.div
               custom={3}
               variants={cardVariants}
@@ -156,12 +143,13 @@ export default function About() {
               </div>
               <div>
                 <h4 className="text-xs font-mono text-white/40 uppercase mb-1">Education</h4>
-                <p className="text-sm font-outfit font-bold text-white leading-tight">DTU · B.Tech</p>
-                <p className="text-xs text-white/40 mt-0.5">Engg. Physics · Minor CS · 8.8 CGPA</p>
+                <p className="text-sm font-outfit font-bold text-white leading-tight">
+                  DTU · {education.degree}
+                </p>
+                <p className="text-xs text-white/40 mt-0.5">{educationLine}</p>
               </div>
             </motion.div>
 
-            {/* Card: What drives me */}
             <motion.div
               custom={4}
               variants={cardVariants}
@@ -176,11 +164,10 @@ export default function About() {
               <div>
                 <h4 className="text-xs font-mono text-white/40 uppercase mb-1">What Drives Me</h4>
                 <p className="text-sm font-outfit font-semibold text-white leading-snug">
-                  Smooth 60 FPS apps, one-command releases, and features users actually feel.
+                  {about.cards.driveMe}
                 </p>
               </div>
             </motion.div>
-
           </div>
         </div>
       </div>

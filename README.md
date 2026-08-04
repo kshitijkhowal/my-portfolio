@@ -1,16 +1,42 @@
-# React + Vite
+# Kshitij Khowal — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React + Vite portfolio. Content lives in the [`kshitij-portfolio-data`](https://github.com/kshitijkhowal/kshitij-portfolio-data) git submodule at `data/`.
 
-Currently, two official plugins are available:
+## Setup
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+git clone --recurse-submodules https://github.com/kshitijkhowal/my-portfolio.git
+cd my-portfolio
+npm install
+npm run dev
+```
 
-## React Compiler
+If you already cloned without submodules:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+git submodule update --init --recursive
+```
 
-## Expanding the Oxlint configuration
+## Data
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+Section JSON is organized under `data/`:
+
+| Folder | Purpose |
+|--------|---------|
+| `Socials/` | Name, contact, links |
+| `Education/` | Schools & degree |
+| `Experience/` | Jobs & bullets |
+| `Projects/` | Featured projects |
+| `Skills/` | Skill inventories |
+| `Achievements/` | Awards & competitive coding |
+| `Site/` | Portfolio-only copy (hero, about, nav, skills UI) |
+
+The UI reads through [`src/lib/portfolioData.js`](src/lib/portfolioData.js). Edit JSON in the data repo, push, then bump the submodule pointer here.
+
+## Scripts
+
+```bash
+npm run dev
+npm run build
+npm run preview
+```

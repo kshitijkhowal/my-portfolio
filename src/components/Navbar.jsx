@@ -2,22 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { Menu, X, Smartphone, ArrowRight } from 'lucide-react';
 import Magnetic from './Magnetic';
-
-const navItems = [
-  { name: 'About', href: '#about' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Experience', href: '#experience' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Achievements', href: '#achievements' },
-  { name: 'Contact', href: '#contact' },
-];
+import { getNav } from '../lib/portfolioData';
 
 export default function Navbar() {
+  const nav = getNav();
+  const navItems = nav.items;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
 
-  // Scroll Progress indicator
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -29,8 +22,7 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      // Simple active section detection
-      const sections = ['about', 'skills', 'experience', 'projects', 'achievements', 'contact'];
+      const sections = navItems.map((item) => item.href.substring(1));
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -48,7 +40,7 @@ export default function Navbar() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [navItems]);
 
   const handleNavClick = (e, href) => {
     e.preventDefault();
@@ -70,14 +62,12 @@ export default function Navbar() {
           scrolled ? 'glass-navbar py-4' : 'bg-transparent py-6'
         }`}
       >
-        {/* Scroll Progress Bar */}
         <motion.div
           className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-androidGreen via-accentOrange to-[#ffaa00] origin-left"
           style={{ scaleX }}
         />
 
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          {/* Logo Brand */}
           <a
             href="#"
             className="flex items-center gap-2 group cursor-none"
@@ -89,11 +79,10 @@ export default function Navbar() {
               </div>
             </div>
             <span className="font-outfit font-black text-xl tracking-tight text-white group-hover:glow-text-orange transition-all duration-300">
-              KSHITIJ<span className="text-accentOrange font-light">.K</span>
+              {nav.brand.primary}<span className="text-accentOrange font-light">{nav.brand.accent}</span>
             </span>
           </a>
 
-          {/* Desktop Nav Items */}
           <nav className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
               <a
@@ -118,7 +107,6 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* Call To Action button on Desktop */}
           <div className="hidden md:block">
             <Magnetic>
               <a
@@ -126,13 +114,12 @@ export default function Navbar() {
                 onClick={(e) => handleNavClick(e, '#contact')}
                 className="btn-secondary text-xs px-4 py-2 border border-white/10 flex items-center gap-2 hover:border-accentOrange/50 hover:bg-accentOrange/5 transition-all duration-300 cursor-none"
               >
-                Let's Talk
+                {nav.cta}
                 <ArrowRight className="w-3.5 h-3.5 text-accentOrange" />
               </a>
             </Magnetic>
           </div>
 
-          {/* Mobile menu trigger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-2 rounded-lg text-white/80 hover:text-white hover:bg-white/5 cursor-none"
@@ -143,7 +130,6 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Mobile nav overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -179,7 +165,7 @@ export default function Navbar() {
                 onClick={(e) => handleNavClick(e, '#contact')}
                 className="btn-primary text-center mt-4 w-full flex items-center justify-center gap-2"
               >
-                Let's Talk
+                {nav.cta}
                 <ArrowRight className="w-4 h-4" />
               </motion.a>
             </div>

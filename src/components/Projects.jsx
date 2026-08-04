@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Play, ChevronLeft, ChevronRight, X, Smartphone, Layers, CheckCircle } from 'lucide-react';
 import Magnetic from './Magnetic';
+import { getProjects } from '../lib/portfolioData';
 
 const GithubIcon = (props) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -30,48 +31,43 @@ function MetroConnectThumbnail() {
   );
 }
 
-const thumbnailMap = {
-  0: <MetroConnectThumbnail />,
-};
+function DefaultProjectThumbnail() {
+  return (
+    <div className="relative flex items-center justify-center w-full h-full">
+      <div className="absolute w-40 h-40 rounded-full bg-accentOrange/15 blur-[60px]" />
+      <div className="relative w-44 h-80 bg-gradient-to-b from-[#1c1c1e] to-[#0f0f0f] rounded-[2.5rem] border-2 border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.6)] overflow-hidden flex flex-col items-center justify-center gap-5">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-5 bg-[#0a0a0a] rounded-b-2xl z-10" />
+        <div className="w-24 h-24 rounded-[2rem] bg-gradient-to-br from-[#ff7a00] to-[#ff4500] flex items-center justify-center shadow-[0_0_40px_rgba(255,122,0,0.5)] text-5xl">
+          📱
+        </div>
+        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-10 h-1 bg-white/20 rounded-full" />
+      </div>
+    </div>
+  );
+}
 
-const projectsData = [
-  {
-    id: 0,
-    title: 'Metro Connect',
-    category: 'Cross-Platform Mobile',
-    tech: ['Expo', 'React Native', 'BFS', 'Expo Location'],
-    features: [
-      'Interactive Delhi Metro route planner across 250+ stations',
-      'Source & destination station selection with least stations / least interchanges options',
-      'Route optimization using Breadth-First Search (BFS) graph traversal',
-      'Real-time route suggestions with Expo Location integration',
-    ],
-    github: null,
-    store: 'https://play.google.com/store/apps/details?id=com.kshitij_khowal.MetroConnect',
-    video: null,
-    architecture: {
-      client: 'Expo, React Native, Expo Location',
-      server: 'On-device graph engine',
-      database: 'Metro network graph (stations & lines)',
-      security: 'Local computation · App sandbox',
-    },
-  },
-];
+function projectThumbnail(project) {
+  if (project.rawId === 'proj-metroconnect') return <MetroConnectThumbnail />;
+  return <DefaultProjectThumbnail />;
+}
 
 export default function Projects() {
-  const [slideIndices, setSlideIndices] = useState({ 0: 0 });
+  const projectsData = getProjects();
+  const [slideIndices, setSlideIndices] = useState(() =>
+    Object.fromEntries(projectsData.map((p) => [p.id, 0])),
+  );
   const [modalVideo, setModalVideo] = useState(null);
 
   const handlePrevSlide = (projectId) => {
     setSlideIndices((prev) => {
-      const current = prev[projectId];
+      const current = prev[projectId] ?? 0;
       return { ...prev, [projectId]: current === 0 ? 2 : current - 1 };
     });
   };
 
   const handleNextSlide = (projectId) => {
     setSlideIndices((prev) => {
-      const current = prev[projectId];
+      const current = prev[projectId] ?? 0;
       return { ...prev, [projectId]: current === 2 ? 0 : current + 1 };
     });
   };
@@ -92,12 +88,12 @@ export default function Projects() {
 
         <div className="flex flex-col gap-32">
           {projectsData.map((project, idx) => {
-            const currentSlide = slideIndices[project.id];
+            const currentSlide = slideIndices[project.id] ?? 0;
             const isEven = idx % 2 === 0;
 
             return (
               <motion.div
-                key={project.id}
+                key={project.rawId}
                 initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-80px' }}
@@ -117,7 +113,7 @@ export default function Projects() {
                             transition={{ duration: 0.4 }}
                             className="w-full h-full flex items-center justify-center p-4 relative"
                           >
-                            {thumbnailMap[project.id]}
+                            {projectThumbnail(project)}
                             <div className="absolute bottom-3 right-3 flex items-center gap-1.5 bg-black/80 border border-white/10 px-3 py-1 rounded-full text-[10px] font-mono text-androidGreen">
                               <Smartphone className="w-3.5 h-3.5" />
                               <span>Live UI Mockup</span>

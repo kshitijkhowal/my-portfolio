@@ -2,31 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Award, Trophy, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
-
-const achievementsList = [
-  {
-    id: 0,
-    title: 'Department Rank 1',
-    subtitle: '3rd Year · DTU Engineering Physics',
-    description:
-      'Secured Department Rank 1 in 3rd year with a GPA of 9.74 (5th semester) and 9.33 (6th semester). Overall CGPA 8.8 (Dept. Rank 8).',
-    icon: <Trophy className="w-6 h-6 text-accentOrange" />,
-    badge: 'DTU',
-    color: 'orange',
-  },
-  {
-    id: 1,
-    title: 'LeetCode Contest 1572',
-    subtitle: 'Top 27% · 400+ DSA Problems',
-    description:
-      'Reached LeetCode Contest Rating 1572 (Top 27%) and completed 400+ Data Structures and Algorithms problems across coding platforms. Highest score possible at Hacker Blocks.',
-    icon: <Award className="w-6 h-6 text-androidGreen" />,
-    badge: 'Competitive Coding',
-    color: 'green',
-  },
-];
+import { getAchievements } from '../lib/portfolioData';
 
 export default function Achievements() {
+  const achievementsList = getAchievements();
+
   const triggerConfetti = (e, colorType) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (rect.left + rect.width / 2) / window.innerWidth;
@@ -78,7 +58,11 @@ export default function Achievements() {
 
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center mb-6">
-                  {ach.icon}
+                  {ach.color === 'orange' ? (
+                    <Trophy className="w-6 h-6 text-accentOrange" />
+                  ) : (
+                    <Award className="w-6 h-6 text-androidGreen" />
+                  )}
                 </div>
 
                 <h4 className="text-3xl font-outfit font-black text-white leading-tight mb-2">
@@ -91,7 +75,7 @@ export default function Achievements() {
               </div>
 
               <div className="mt-8 pt-4 border-t border-white/5 flex justify-between items-center text-xs font-mono text-white/40">
-                <span>From resume</span>
+                <span>From data</span>
                 <span className="text-androidGreen font-semibold">{ach.badge}</span>
               </div>
             </motion.div>

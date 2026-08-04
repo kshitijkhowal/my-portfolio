@@ -1,48 +1,12 @@
 import React from 'react';
 import { Calendar, Award } from 'lucide-react';
-
-const experiences = [
-  {
-    role: 'Mobile Application Developer',
-    type: 'Full Time',
-    company: 'BrokerApp',
-    companyUrl: 'https://brokerapp.com/',
-    period: 'Nov 2025 – Present',
-    highlights: [
-      'Engineered and maintained a React Native cross-platform app used by 10K+ users on iOS and Android.',
-      'Upgraded the application from React Native 0.77.4 to 0.85.0 while resolving build compatibility issues.',
-      'Streamlined the main feed and infinite scrolling, reducing FPS drops and maintaining consistent 60 FPS performance.',
-      'Automated CI/CD pipelines, reducing the release process from 5 manual steps to a single command via Firebase App Distribution and TestFlight.',
-      'Enabled Razorpay payment gateway support, handling 30+ monthly payments with a 90% success rate.',
-      'Introduced local LLM-powered features to generate AI-assisted titles and descriptions for user-generated posts.',
-    ],
-  },
-  {
-    role: 'React Native Developer',
-    type: 'Intern + Full Time',
-    company: 'Ambak',
-    companyUrl: 'https://ambak.com/',
-    period: 'Jan 2025 – Nov 2025',
-    highlights: [
-      'Delivered and maintained 2 production mobile applications (Ambak Yoddha & Ambak Saathi) with backend and product teams.',
-      'Migrated applications from React Native Community CLI to Expo SDK 52, leveraging Expo libraries.',
-      'Set up Fastlane CI/CD pipelines and added Firebase Crashlytics for monitoring and debugging.',
-    ],
-  },
-  {
-    role: 'Junior Software Developer',
-    type: 'Intern',
-    company: 'Growth Marketers',
-    companyUrl: null,
-    period: 'Jun 2024 – Jul 2024',
-    highlights: [
-      'Created and connected multiple APIs for the CRM mobile app and admin portal.',
-      'Coordinated shared services using a centralized Git submodule across client, admin, and backend repositories.',
-    ],
-  },
-];
+import { getAbout, getExperiences } from '../lib/portfolioData';
 
 export default function Experience() {
+  const experiences = getExperiences();
+  const about = getAbout();
+  const focus = about.focusBlurb;
+
   return (
     <section id="experience" className="py-24 relative overflow-hidden bg-darkBg">
       <div className="absolute top-1/4 left-10 w-[300px] h-[300px] rounded-full bg-androidGreen/5 blur-[100px] pointer-events-none" />
@@ -59,24 +23,23 @@ export default function Experience() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-4 flex flex-col justify-start">
             <h4 className="text-xl font-outfit font-bold text-white mb-4">
-              FOCUSED ON MOBILE ENGINEERING
+              {focus.title}
             </h4>
             <p className="text-white/60 leading-relaxed mb-6">
-              Shipping production React Native apps — from Expo migrations and CI/CD to
-              performance tuning, payments, and on-device AI features.
+              {focus.body}
             </p>
             <div className="flex items-center gap-4 bg-white/5 border border-white/5 p-4 rounded-xl w-fit">
               <Award className="w-5 h-5 text-accentOrange" />
               <div>
-                <p className="text-xs font-mono text-white/40 uppercase">Focus Area</p>
-                <p className="text-sm font-bold text-white">React Native · Expo · CI/CD</p>
+                <p className="text-xs font-mono text-white/40 uppercase">{focus.focusLabel}</p>
+                <p className="text-sm font-bold text-white">{focus.focusValue}</p>
               </div>
             </div>
           </div>
 
           <div className="lg:col-span-8 relative pl-8 md:pl-12 border-l border-white/10 space-y-10">
             {experiences.map((exp, idx) => (
-              <div key={exp.company} className="relative">
+              <div key={exp.id} className="relative">
                 <div
                   className={`absolute top-0 left-[-40px] md:left-[-56px] w-4 h-4 rounded-full border-4 border-darkBg ${
                     idx === 0
