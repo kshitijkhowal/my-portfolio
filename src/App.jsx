@@ -1,0 +1,65 @@
+import React, { useState } from 'react';
+import Loader from './components/Loader';
+import CustomCursor from './components/CustomCursor';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import About from './components/About';
+import Skills from './components/Skills';
+import Experience from './components/Experience';
+import Projects from './components/Projects';
+import Achievements from './components/Achievements';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+import BackToTop from './components/BackToTop';
+
+export default function App() {
+  const [loading, setLoading] = useState(true);
+
+  return (
+    <>
+      {/* 1. Global Loading Intro Animation */}
+      <Loader onLoadComplete={() => setLoading(false)} />
+
+      {/* Show portfolio content only after loading is completed */}
+      {!loading && (
+        <div className="relative min-h-screen selection:bg-accentOrange/30 selection:text-white">
+          {/* 2. Custom Android Theme Cursor */}
+          <CustomCursor />
+
+          {/* 3. Floating Back To Top button */}
+          <BackToTop />
+
+          {/* 4. Sticky Glass Navbar */}
+          <Navbar />
+
+          {/* 5. Main Portfolio sections flow */}
+          <main className="relative z-10">
+            {/* Hero Section with 3D Canvas */}
+            <Hero />
+
+            {/* About Profile Info */}
+            <About />
+
+            {/* Technical Skills Categorized Grid */}
+            <Skills />
+
+            {/* Timeline Internship Details */}
+            <Experience />
+
+            {/* Project order: Quickart, Belur Math, Viveka */}
+            <Projects />
+
+            {/* Awards & Confetti bursts */}
+            <Achievements />
+
+            {/* Vercel-style Contact form */}
+            <Contact />
+          </main>
+
+          {/* 6. Footer bar */}
+          <Footer />
+        </div>
+      )}
+    </>
+  );
+}
