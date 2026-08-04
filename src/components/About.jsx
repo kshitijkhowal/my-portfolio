@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Code, Cpu, Zap, Heart } from 'lucide-react';
+import { MapPin, Code, Cpu, Heart } from 'lucide-react';
 
 export default function About() {
   const cardVariants = {
@@ -18,12 +18,12 @@ export default function About() {
   };
 
   const highlights = [
-    { icon: '📱', label: 'React Native Dev' },
-    { icon: '🍎', label: 'iOS & SwiftUI' },
-    { icon: '🥽', label: 'Vision Pro' },
+    { icon: '📱', label: 'React Native' },
+    { icon: '⚡', label: 'Expo' },
+    { icon: '🔥', label: 'Firebase' },
     { icon: '🤖', label: 'AI Integration' },
-    { icon: '⚡', label: 'Clean Code' },
-    { icon: '🎨', label: 'Premium UI' },
+    { icon: '🚀', label: 'CI/CD' },
+    { icon: '🎨', label: 'Clean UI' },
   ];
 
   return (
@@ -58,9 +58,9 @@ export default function About() {
               className="text-2xl md:text-3xl font-outfit font-light text-white/90 leading-relaxed"
             >
               Hey, I'm{' '}
-              <span className="text-accentOrange font-semibold">Mukesh Y</span>{' '}
+              <span className="text-accentOrange font-semibold">Kshitij Khowal</span>{' '}
               — a <span className="text-androidGreen font-medium">React Native developer</span>{' '}
-              who builds fast, beautiful mobile apps for iOS and Android.
+              shipping production apps used by thousands on iOS and Android.
             </motion.p>
 
             {/* Short punchy second line */}
@@ -71,8 +71,9 @@ export default function About() {
               transition={{ duration: 0.8, ease: 'easeOut', delay: 0.15 }}
               className="text-base md:text-lg text-white/60 leading-relaxed"
             >
-              I work on both the app and the backend, so I can take an idea
-              all the way from design to a working product on my own.
+              DTU Engineering Physics graduate (Minor in CS, CGPA 8.8). I care about
+              performance, clean releases, and shipping features that people actually use —
+              from feed optimization and payments to CI/CD and on-device AI.
             </motion.p>
 
             {/* Highlights Pill Row */}
@@ -116,8 +117,8 @@ export default function About() {
                 <MapPin className="w-5 h-5 text-accentOrange" />
               </div>
               <div>
-                <h4 className="text-xs font-mono text-white/40 uppercase mb-1">📍 Where I'm Based</h4>
-                <p className="text-lg font-outfit font-bold text-white">Chennai, Tamil Nadu, India</p>
+                <h4 className="text-xs font-mono text-white/40 uppercase mb-1">Where I'm Based</h4>
+                <p className="text-lg font-outfit font-bold text-white">Delhi, India</p>
                 <p className="text-xs text-white/40 mt-0.5">Available for remote & on-site roles</p>
               </div>
             </motion.div>
@@ -136,12 +137,12 @@ export default function About() {
               </div>
               <div>
                 <h4 className="text-xs font-mono text-white/40 uppercase mb-1">My Stack</h4>
-                <p className="text-sm font-outfit font-bold text-white leading-tight">React Native & iOS</p>
-                <p className="text-xs text-white/40 mt-0.5">JS · Swift · SwiftUI</p>
+                <p className="text-sm font-outfit font-bold text-white leading-tight">React Native & Expo</p>
+                <p className="text-xs text-white/40 mt-0.5">JS · TS · Node · Firebase</p>
               </div>
             </motion.div>
 
-            {/* Card: Apple Vision Pro */}
+            {/* Card: Education */}
             <motion.div
               custom={3}
               variants={cardVariants}
@@ -154,9 +155,9 @@ export default function About() {
                 <Cpu className="w-5 h-5 text-accentOrange" />
               </div>
               <div>
-                <h4 className="text-xs font-mono text-white/40 uppercase mb-1">Spatial</h4>
-                <p className="text-sm font-outfit font-bold text-white leading-tight">Apple Vision Pro</p>
-                <p className="text-xs text-white/40 mt-0.5">visionOS prototyping</p>
+                <h4 className="text-xs font-mono text-white/40 uppercase mb-1">Education</h4>
+                <p className="text-sm font-outfit font-bold text-white leading-tight">DTU · B.Tech</p>
+                <p className="text-xs text-white/40 mt-0.5">Engg. Physics · Minor CS · 8.8 CGPA</p>
               </div>
             </motion.div>
 
@@ -175,8 +176,7 @@ export default function About() {
               <div>
                 <h4 className="text-xs font-mono text-white/40 uppercase mb-1">What Drives Me</h4>
                 <p className="text-sm font-outfit font-semibold text-white leading-snug">
-                  Making something useful that people actually enjoy using —
-                  that's what keeps me going.
+                  Smooth 60 FPS apps, one-command releases, and features users actually feel.
                 </p>
               </div>
             </motion.div>

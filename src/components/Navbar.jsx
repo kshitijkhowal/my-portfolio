@@ -89,7 +89,7 @@ export default function Navbar() {
               </div>
             </div>
             <span className="font-outfit font-black text-xl tracking-tight text-white group-hover:glow-text-orange transition-all duration-300">
-              MUKESH<span className="text-accentOrange font-light">.Y</span>
+              KSHITIJ<span className="text-accentOrange font-light">.K</span>
             </span>
           </a>
 

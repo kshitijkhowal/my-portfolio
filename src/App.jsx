@@ -46,7 +46,7 @@ export default function App() {
             {/* Timeline Internship Details */}
             <Experience />
 
-            {/* Project order: Quickart, Belur Math, Viveka */}
+            {/* Project order: Metro Connect */}
             <Projects />
 
             {/* Awards & Confetti bursts */}

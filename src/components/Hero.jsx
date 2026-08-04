@@ -50,16 +50,20 @@ export default function Hero() {
             </span>
           </motion.div>
 
-          {/* Large Title: MUKESH Y */}
+          {/* Large Title: KSHITIJ KHOWAL */}
           <motion.h1 
             variants={itemVariants}
             className="font-outfit leading-none tracking-tighter mb-4"
           >
             <span className="text-8xl md:text-9xl font-extrabold text-accentOrange drop-shadow-[0_0_25px_rgba(255,122,0,0.25)] select-none mr-[-5px]">
-              M
+              K
             </span>
-            <span className="text-6xl md:text-7xl font-extrabold text-white select-none tracking-tight">
-              UKESH Y
+            <span className="text-5xl md:text-7xl font-extrabold text-white select-none tracking-tight">
+              SHITIJ
+            </span>
+            <br />
+            <span className="text-5xl md:text-7xl font-extrabold text-white/90 select-none tracking-tight">
+              KHOWAL
             </span>
           </motion.h1>
 
@@ -68,7 +72,7 @@ export default function Hero() {
             variants={itemVariants}
             className="text-lg md:text-xl font-mono text-white/80 tracking-wide mb-8 border-l-2 border-accentOrange pl-4"
           >
-            Mobile App Developer <span className="text-androidGreen">•</span> React Native <span className="text-androidGreen">•</span> iOS <span className="text-androidGreen">•</span> Apple Vision Pro
+            Mobile App Developer <span className="text-androidGreen">•</span> React Native <span className="text-androidGreen">•</span> Expo <span className="text-androidGreen">•</span> iOS & Android
           </motion.p>
 
           {/* CTAs */}
@@ -88,7 +92,7 @@ export default function Hero() {
             
             <Magnetic>
               <a 
-                href="https://drive.google.com/file/d/1koP4-sCHwReeusM_enHNaDk8b5TjHKio/view?usp=sharing" 
+                href="/KshitijKhowal_Resume.pdf" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="btn-secondary flex items-center gap-2 cursor-none border-white/10 hover:border-androidGreen/40 hover:bg-androidGreen/5"

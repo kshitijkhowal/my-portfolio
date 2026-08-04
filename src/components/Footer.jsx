@@ -26,7 +26,7 @@ export default function Footer() {
             </div>
           </div>
           <span className="font-outfit font-black text-sm tracking-tight text-white">
-            MUKESH Y <span className="text-white/40 font-normal">| © {new Date().getFullYear()}</span>
+            KSHITIJ KHOWAL <span className="text-white/40 font-normal">| © {new Date().getFullYear()}</span>
           </span>
         </div>
 
