@@ -11,35 +11,6 @@ const GithubIcon = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-function MetroConnectThumbnail({ project }: { project: PortfolioProject }) {
-  return (
-    <div className="relative flex items-center justify-center w-full h-full">
-      <div className="absolute w-40 h-40 rounded-full bg-[#3ddc84]/15 blur-[60px]" />
-      <div className="relative h-80 w-44 rounded-[2.75rem] border border-white/20 bg-[#080a0c] p-2 shadow-[0_24px_65px_rgba(0,0,0,0.55)]">
-        <div className="relative flex h-full flex-col items-center justify-center overflow-hidden rounded-[2.25rem] bg-[linear-gradient(160deg,rgba(61,220,132,0.42)_0%,rgba(61,220,132,0.12)_42%,#0d1012_78%)]">
-          <div className="absolute left-1/2 top-3 h-3 w-3 -translate-x-1/2 rounded-full bg-black ring-1 ring-white/10" />
-
-          <div className="relative z-10 flex h-24 w-24 items-center justify-center rounded-[2rem] bg-androidGreen shadow-[0_12px_40px_rgba(61,220,132,0.3)]">
-            <img
-              src={project.icon ?? undefined}
-              alt="Metro Connect icon"
-              className="h-14 w-14 object-contain brightness-0 invert"
-            />
-          </div>
-          <p className="relative z-10 mt-5 font-outfit text-base font-bold text-white">
-            Metro Connect
-          </p>
-          <p className="relative z-10 mt-1 text-[9px] font-mono uppercase tracking-[0.2em] text-white/40">
-            Delhi Metro Navigator
-          </p>
-
-          <div className="absolute bottom-4 left-1/2 h-1 w-12 -translate-x-1/2 rounded-full bg-white/25" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function DefaultProjectThumbnail() {
   return (
     <div className="relative flex items-center justify-center w-full h-full">
@@ -56,7 +27,15 @@ function DefaultProjectThumbnail() {
 }
 
 function projectThumbnail(project: PortfolioProject) {
-  if (project.rawId === 'proj-metroconnect') return <MetroConnectThumbnail project={project} />;
+  if (project.banner) {
+    return (
+      <img
+        src={project.banner}
+        alt={`${project.title} feature banner`}
+        className="h-full w-full object-contain"
+      />
+    );
+  }
   return <DefaultProjectThumbnail />;
 }
 
@@ -95,8 +74,8 @@ export default function Projects() {
                 className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
               >
                 <div className={`lg:col-span-6 w-full ${!isEven ? 'lg:order-2' : ''}`}>
-                  <div className="relative group rounded-3xl overflow-hidden glass-card border border-white/10 p-4 aspect-[4/3] flex flex-col justify-between">
-                    <div className="relative flex-grow flex items-center justify-center overflow-hidden rounded-2xl bg-black/40">
+                  <div className="relative group rounded-3xl overflow-hidden glass-card border border-white/10 p-4 flex flex-col justify-between">
+                    <div className="relative aspect-[2/1] flex items-center justify-center overflow-hidden rounded-2xl bg-black/40">
                       <AnimatePresence mode="wait">
                         {currentSlide === 0 && (
                           <motion.div
@@ -105,12 +84,12 @@ export default function Projects() {
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.92 }}
                             transition={{ duration: 0.4 }}
-                            className="w-full h-full flex items-center justify-center p-4 relative"
+                            className="w-full h-full flex items-center justify-center relative"
                           >
                             {projectThumbnail(project)}
                             <div className="absolute bottom-3 right-3 flex items-center gap-1.5 bg-black/80 border border-white/10 px-3 py-1 rounded-full text-[10px] font-mono text-androidGreen">
                               <Smartphone className="w-3.5 h-3.5" />
-                              <span>Live UI Mockup</span>
+                              <span>Product Preview</span>
                             </div>
                           </motion.div>
                         )}
@@ -214,9 +193,20 @@ export default function Projects() {
                     {project.category}
                   </span>
 
-                  <h3 className="text-3xl md:text-4xl font-outfit font-black tracking-tight text-white mb-4">
-                    {project.title}
-                  </h3>
+                  <div className="mb-4 flex items-center gap-4">
+                    {project.icon && (
+                      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-white shadow-lg">
+                        <img
+                          src={project.icon}
+                          alt=""
+                          className="h-7 w-7 object-contain"
+                        />
+                      </div>
+                    )}
+                    <h3 className="text-3xl md:text-4xl font-outfit font-black tracking-tight text-white">
+                      {project.title}
+                    </h3>
+                  </div>
 
                   <div className="flex flex-wrap gap-2 mb-6">
                     {project.tech.map((t: string) => (

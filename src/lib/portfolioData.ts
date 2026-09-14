@@ -164,6 +164,10 @@ export function getProjects() {
         rawId: project.id,
         title: project.name === 'MetroConnect' ? 'Metro Connect' : project.name,
         icon: project.id === 'proj-metroconnect' ? metroConnectIcon : null,
+        banner:
+          project.id === 'proj-metroconnect'
+            ? '/images/metro-connect-banner.jpg'
+            : null,
         category: project.category || 'Project',
         tech: project.techStack || [],
         features: (project.bullets || []).map((b: { text: string }) => b.text),
