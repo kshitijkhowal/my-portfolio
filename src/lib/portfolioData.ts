@@ -21,30 +21,30 @@ const MONTHS = [
   'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
 ];
 
-const EMPLOYMENT_LABELS = {
+const EMPLOYMENT_LABELS: Record<string, string> = {
   'full-time': 'Full Time',
   'intern': 'Intern',
   'intern-to-full-time': 'Intern + Full Time',
   'contract': 'Contract',
 };
 
-const EXPERIENCE_ICONS = {
+const EXPERIENCE_ICONS: Record<string, string> = {
   'exp-brokerapp': brokerAppIcon,
   'exp-ambak': ambakIcon,
   'exp-growth-marketers': growthMarketersIcon,
 };
 
-const EXPERIENCE_BRAND_COLORS = {
+const EXPERIENCE_BRAND_COLORS: Record<string, string> = {
   'exp-brokerapp': '#C20707',
   'exp-ambak': '#6632D8',
 };
 
-const socialsMap = Object.fromEntries(
+const socialsMap: Record<string, any> = Object.fromEntries(
   socialsRaw.map((item) => [item.key, item.value]),
 );
 
 /** @param {string | null | undefined} value */
-export function formatMonthYear(value) {
+export function formatMonthYear(value?: string | null) {
   if (!value) return '';
   if (value === 'present') return 'Present';
   const [year, month] = value.split('-');
@@ -54,7 +54,13 @@ export function formatMonthYear(value) {
 }
 
 /** @param {{ startDate?: string | null, endDate?: string | null }} range */
-export function formatDateRange({ startDate, endDate }) {
+export function formatDateRange({
+  startDate,
+  endDate,
+}: {
+  startDate?: string | null;
+  endDate?: string | null;
+}) {
   const start = formatMonthYear(startDate);
   const end = formatMonthYear(endDate) || 'Present';
   if (!start) return end;
@@ -136,7 +142,7 @@ export function getExperiences() {
 }
 
 export function getProjects() {
-  const all = [metroconnect, messagingApp];
+  const all: any[] = [metroconnect, messagingApp];
   return all
     .filter((p) => p.featured === true || p.status === 'published')
     .map((project, index) => {
@@ -160,7 +166,7 @@ export function getProjects() {
         icon: project.id === 'proj-metroconnect' ? metroConnectIcon : null,
         category: project.category || 'Project',
         tech: project.techStack || [],
-        features: (project.bullets || []).map((b) => b.text),
+        features: (project.bullets || []).map((b: { text: string }) => b.text),
         github: project.links?.github || null,
         store: project.links?.android || project.links?.ios || null,
         video: project.links?.demo || null,

@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React, { type SVGProps } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Play, ChevronLeft, ChevronRight, X, Smartphone, Layers, CheckCircle } from 'lucide-react';
-import Magnetic from './Magnetic';
-import { getProjects } from '../lib/portfolioData';
+import Magnetic from '../Magnetic/Magnetic';
+import { useProjects, type PortfolioProject } from './useProjects';
 
-const GithubIcon = (props) => (
+const GithubIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
     <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
     <path d="M9 18c-4.51 2-5-2-7-2" />
   </svg>
 );
 
-function MetroConnectThumbnail({ project }) {
+function MetroConnectThumbnail({ project }: { project: PortfolioProject }) {
   return (
     <div className="relative flex items-center justify-center w-full h-full">
       <div className="absolute w-40 h-40 rounded-full bg-[#3ddc84]/15 blur-[60px]" />
@@ -21,7 +21,7 @@ function MetroConnectThumbnail({ project }) {
 
           <div className="relative z-10 flex h-24 w-24 items-center justify-center rounded-[2rem] bg-androidGreen shadow-[0_12px_40px_rgba(61,220,132,0.3)]">
             <img
-              src={project.icon}
+              src={project.icon ?? undefined}
               alt="Metro Connect icon"
               className="h-14 w-14 object-contain brightness-0 invert"
             />
@@ -55,31 +55,16 @@ function DefaultProjectThumbnail() {
   );
 }
 
-function projectThumbnail(project) {
+function projectThumbnail(project: PortfolioProject) {
   if (project.rawId === 'proj-metroconnect') return <MetroConnectThumbnail project={project} />;
   return <DefaultProjectThumbnail />;
 }
 
 export default function Projects() {
-  const projectsData = getProjects();
-  const [slideIndices, setSlideIndices] = useState(() =>
-    Object.fromEntries(projectsData.map((p) => [p.id, 0])),
-  );
-  const [modalVideo, setModalVideo] = useState(null);
-
-  const handlePrevSlide = (projectId) => {
-    setSlideIndices((prev) => {
-      const current = prev[projectId] ?? 0;
-      return { ...prev, [projectId]: current === 0 ? 2 : current - 1 };
-    });
-  };
-
-  const handleNextSlide = (projectId) => {
-    setSlideIndices((prev) => {
-      const current = prev[projectId] ?? 0;
-      return { ...prev, [projectId]: current === 2 ? 0 : current + 1 };
-    });
-  };
+  const {
+    projects: projectsData, slideIndices, modalVideo, setModalVideo,
+    setSlide, previousSlide, nextSlide,
+  } = useProjects();
 
   return (
     <section id="projects" className="py-24 relative overflow-hidden bg-darkBg border-t border-white/5">
@@ -144,7 +129,7 @@ export default function Projects() {
                               Core Features
                             </h4>
                             <ul className="space-y-3">
-                              {project.features.map((feature) => (
+                              {project.features.map((feature: string) => (
                                 <li key={feature} className="flex items-start gap-2.5 text-sm text-white/80">
                                   <span className="w-1.5 h-1.5 rounded-full bg-accentOrange mt-1.5 flex-shrink-0" />
                                   <span>{feature}</span>
@@ -195,7 +180,7 @@ export default function Projects() {
                         {[0, 1, 2].map((dot) => (
                           <button
                             key={dot}
-                            onClick={() => setSlideIndices((prev) => ({ ...prev, [project.id]: dot }))}
+                            onClick={() => setSlide(project.id, dot)}
                             className={`rounded-full transition-all duration-300 cursor-none ${
                               currentSlide === dot
                                 ? 'w-5 h-1.5 bg-accentOrange'
@@ -206,14 +191,14 @@ export default function Projects() {
                       </div>
                       <div className="flex items-center gap-2">
                         <button
-                          onClick={() => handlePrevSlide(project.id)}
+                          onClick={() => previousSlide(project.id)}
                           className="w-8 h-8 rounded-full bg-white/5 border border-white/10 hover:border-accentOrange/40 hover:bg-white/10 flex items-center justify-center transition-colors cursor-none"
                           aria-label="Previous Slide"
                         >
                           <ChevronLeft className="w-4 h-4 text-white" />
                         </button>
                         <button
-                          onClick={() => handleNextSlide(project.id)}
+                          onClick={() => nextSlide(project.id)}
                           className="w-8 h-8 rounded-full bg-white/5 border border-white/10 hover:border-accentOrange/40 hover:bg-white/10 flex items-center justify-center transition-colors cursor-none"
                           aria-label="Next Slide"
                         >
@@ -234,7 +219,7 @@ export default function Projects() {
                   </h3>
 
                   <div className="flex flex-wrap gap-2 mb-6">
-                    {project.tech.map((t) => (
+                    {project.tech.map((t: string) => (
                       <span
                         key={t}
                         className="bg-white/5 border border-white/5 hover:border-accentOrange/20 px-3 py-1 rounded-full text-xs font-mono text-white/70 transition-colors"

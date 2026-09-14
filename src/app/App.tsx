@@ -1,23 +1,24 @@
-import React, { useState } from 'react';
-import Loader from './components/Loader';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Skills from './components/Skills';
-import Experience from './components/Experience';
-import Projects from './components/Projects';
-import Achievements from './components/Achievements';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import BackToTop from './components/BackToTop';
+import React from 'react';
+import { useApp } from './useApp';
+import Loader from '../components/Loader/Loader';
+import Navbar from '../components/Navbar/Navbar';
+import Hero from '../components/Hero/Hero';
+import About from '../components/About/About';
+import Skills from '../components/Skills/Skills';
+import Experience from '../components/Experience/Experience';
+import Projects from '../components/Projects/Projects';
+import Achievements from '../components/Achievements/Achievements';
+import Contact from '../components/Contact/Contact';
+import Footer from '../components/Footer/Footer';
+import BackToTop from '../components/BackToTop/BackToTop';
 
 export default function App() {
-  const [loading, setLoading] = useState(true);
+  const { loading, completeLoading } = useApp();
 
   return (
     <>
       {/* 1. Global Loading Intro Animation */}
-      <Loader onLoadComplete={() => setLoading(false)} />
+      <Loader onLoadComplete={completeLoading} />
 
       {/* Show portfolio content only after loading is completed */}
       {!loading && (

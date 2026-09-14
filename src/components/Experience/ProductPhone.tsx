@@ -1,7 +1,21 @@
 import React from 'react';
 import { ExternalLink } from 'lucide-react';
 
-export default function ProductPhone({ product, platform, href, logo, brandColor }) {
+type ProductPhoneProps = {
+  product: { name: string };
+  platform: string;
+  href: string;
+  logo: string;
+  brandColor?: string;
+};
+
+export default function ProductPhone({
+  product,
+  platform,
+  href,
+  logo,
+  brandColor,
+}: ProductPhoneProps) {
   const isIos = platform === 'ios';
   const productColor = brandColor || '#3ddc84';
 

@@ -1,18 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Calendar, ChevronDown, Globe2, Smartphone } from 'lucide-react';
-import { getExperiences } from '../lib/portfolioData';
+import { getExperiences } from '../../lib/portfolioData';
 import ProductPhone from './ProductPhone';
+import { useExperience } from './useExperience';
 
 export default function Experience() {
   const experiences = getExperiences();
-  const [expandedExperiences, setExpandedExperiences] = useState({});
-
-  const toggleHighlights = (id) => {
-    setExpandedExperiences((current) => ({
-      ...current,
-      [id]: !current[id],
-    }));
-  };
+  const { expandedExperiences, toggleHighlights } = useExperience();
 
   return (
     <section id="experience" className="py-24 relative overflow-hidden bg-darkBg">
@@ -35,7 +29,7 @@ export default function Experience() {
             const linkedProducts = exp.products.flatMap((product) =>
               Object.entries(product.storeLinks || {})
                 .filter(([, href]) => Boolean(href))
-                .map(([platform, href]) => ({ product, platform, href })),
+                .map(([platform, href]) => ({ product, platform, href: String(href) })),
             );
             const internalProducts = exp.products.filter(
               (product) => !Object.values(product.storeLinks || {}).some(Boolean),

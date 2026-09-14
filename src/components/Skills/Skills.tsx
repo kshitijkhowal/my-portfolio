@@ -1,9 +1,12 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Smartphone, Code, Database, Settings, Cpu, ShieldCheck } from 'lucide-react';
-import { getSkillGroups } from '../lib/portfolioData';
+import { motion, type Variants } from 'framer-motion';
+import {
+  Smartphone, Code, Database, Settings, Cpu, ShieldCheck,
+  type LucideIcon,
+} from 'lucide-react';
+import { getSkillGroups } from '../../lib/portfolioData';
 
-const iconMap = {
+const iconMap: Record<string, LucideIcon> = {
   smartphone: Smartphone,
   code: Code,
   database: Database,
@@ -15,7 +18,7 @@ const iconMap = {
 export default function Skills() {
   const skillGroups = getSkillGroups();
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: {},
     visible: {
       transition: {
@@ -24,7 +27,7 @@ export default function Skills() {
     },
   };
 
-  const cardVariants = {
+  const cardVariants: Variants = {
     hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,

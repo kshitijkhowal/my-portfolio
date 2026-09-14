@@ -1,34 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLoader } from './useLoader';
 
-export default function Loader({ onLoadComplete }) {
-  const [progress, setProgress] = useState(0);
-  const [isDone, setIsDone] = useState(false);
+type LoaderProps = { onLoadComplete: () => void };
 
-  useEffect(() => {
-    const duration = 2000; // 2 seconds
-    const interval = 20;
-    const step = 100 / (duration / interval);
-
-    const timer = setInterval(() => {
-      setProgress((prev) => {
-        const next = prev + step;
-        if (next >= 100) {
-          clearInterval(timer);
-          setTimeout(() => {
-            setIsDone(true);
-            setTimeout(() => {
-              onLoadComplete();
-            }, 600); // Wait for exit animation to finish
-          }, 400);
-          return 100;
-        }
-        return next;
-      });
-    }, interval);
-
-    return () => clearInterval(timer);
-  }, [onLoadComplete]);
+export default function Loader({ onLoadComplete }: LoaderProps) {
+  const { progress, isDone } = useLoader(onLoadComplete);
 
   return (
     <AnimatePresence>

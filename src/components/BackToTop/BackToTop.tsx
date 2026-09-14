@@ -1,39 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
-import Magnetic from './Magnetic';
+import Magnetic from '../Magnetic/Magnetic';
+import { useBackToTop } from './useBackToTop';
 
 export default function BackToTop() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      // Toggle visibility
-      if (window.scrollY > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-
-      // Calculate scroll progress percentage
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalHeight > 0) {
-        const progress = (window.scrollY / totalHeight) * 100;
-        setScrollProgress(progress);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
+  const { isVisible, scrollProgress, scrollToTop } = useBackToTop();
 
   // SVG parameters for progress circle
   const radius = 18;

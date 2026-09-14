@@ -1,22 +1,10 @@
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import ThreeScene from './ThreeScene';
+import { useWebGLSupport } from './useWebGLSupport';
 
 export default function HeroCanvas() {
-  const [webGLSupported, setWebGLSupported] = useState(true);
-
-  useEffect(() => {
-    try {
-      const canvas = document.createElement('canvas');
-      const support = !!(
-        window.WebGLRenderingContext &&
-        (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
-      );
-      setWebGLSupported(support);
-    } catch (e) {
-      setWebGLSupported(false);
-    }
-  }, []);
+  const webGLSupported = useWebGLSupport();
 
   if (!webGLSupported) {
     // Beautiful premium 2D fallback for devices/browsers without WebGL support

@@ -1,21 +1,9 @@
 import React from 'react';
 import { Smartphone, Heart } from 'lucide-react';
-import { getNav } from '../lib/portfolioData';
+import { useFooter } from './useFooter';
 
 export default function Footer() {
-  const nav = getNav();
-
-  const handleNavClick = (e, href) => {
-    e.preventDefault();
-    const targetId = href.substring(1);
-    const element = document.getElementById(targetId);
-    if (element) {
-      window.scrollTo({
-        top: element.offsetTop - 80,
-        behavior: 'smooth',
-      });
-    }
-  };
+  const { nav, handleNavClick } = useFooter();
 
   return (
     <footer className="bg-[#111111] border-t border-white/5 py-12 relative overflow-hidden">

@@ -1,30 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Award, Trophy, Sparkles } from 'lucide-react';
-import confetti from 'canvas-confetti';
-import { getAchievements } from '../lib/portfolioData';
+import { useAchievements } from './useAchievements';
 
 export default function Achievements() {
-  const achievementsList = getAchievements();
-
-  const triggerConfetti = (e, colorType) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = (rect.left + rect.width / 2) / window.innerWidth;
-    const y = (rect.top + rect.height / 2) / window.innerHeight;
-
-    const colors =
-      colorType === 'orange'
-        ? ['#ff7a00', '#ffaa00', '#ffffff']
-        : ['#3ddc84', '#00ff7f', '#ffffff'];
-
-    confetti({
-      particleCount: 50,
-      spread: 60,
-      origin: { x, y },
-      colors,
-      disableForReducedMotion: true,
-    });
-  };
+  const { achievements: achievementsList, triggerConfetti } = useAchievements();
 
   return (
     <section id="achievements" className="py-24 relative overflow-hidden bg-darkBg border-t border-white/5">

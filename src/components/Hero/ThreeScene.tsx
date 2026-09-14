@@ -1,27 +1,10 @@
-import React, { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
+import React from 'react';
 import { Sparkles, Float, Ring } from '@react-three/drei';
 import * as THREE from 'three';
+import { useThreeScene } from './useThreeScene';
 
 export default function ThreeScene() {
-  const sceneRef = useRef();
-
-  // Handle pointer-based rotation and translation for premium parallax effect
-  useFrame((state) => {
-    const { x, y } = state.pointer; // Ranges from -1 to 1
-    
-    // Smoothly interpolate rotation based on mouse coordinates
-    sceneRef.current.rotation.y = THREE.MathUtils.lerp(
-      sceneRef.current.rotation.y,
-      x * 0.4,
-      0.05
-    );
-    sceneRef.current.rotation.x = THREE.MathUtils.lerp(
-      sceneRef.current.rotation.x,
-      -y * 0.2,
-      0.05
-    );
-  });
+  const sceneRef = useThreeScene();
 
   return (
     <group ref={sceneRef}>

@@ -1,16 +1,16 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { MapPin, Code, Cpu, Heart } from 'lucide-react';
-import { getAbout, getPerson, getPrimaryEducation } from '../lib/portfolioData';
+import { getAbout, getPerson, getPrimaryEducation } from '../../lib/portfolioData';
 
 export default function About() {
   const about = getAbout();
   const person = getPerson();
   const education = getPrimaryEducation();
 
-  const cardVariants = {
+  const cardVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
-    visible: (custom) => ({
+    visible: (custom: number) => ({
       opacity: 1,
       y: 0,
       transition: {

@@ -1,59 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
+import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Smartphone, ArrowRight } from 'lucide-react';
-import Magnetic from './Magnetic';
-import { getNav } from '../lib/portfolioData';
+import Magnetic from '../Magnetic/Magnetic';
+import { useNavbar } from './useNavbar';
 
 export default function Navbar() {
-  const nav = getNav();
-  const navItems = nav.items;
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
-
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-
-      const sections = navItems.map((item) => item.href.substring(1));
-      const scrollPosition = window.scrollY + 200;
-
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [navItems]);
-
-  const handleNavClick = (e, href) => {
-    e.preventDefault();
-    setMobileMenuOpen(false);
-    const targetId = href.substring(1);
-    const element = document.getElementById(targetId);
-    if (element) {
-      window.scrollTo({
-        top: element.offsetTop - 80,
-        behavior: 'smooth',
-      });
-    }
-  };
+  const {
+    nav, navItems, mobileMenuOpen, setMobileMenuOpen,
+    scrolled, activeSection, scaleX, handleNavClick,
+  } = useNavbar();
 
   return (
     <>

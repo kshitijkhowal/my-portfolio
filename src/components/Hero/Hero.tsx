@@ -1,9 +1,9 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { FileText, ArrowRight, Mail } from 'lucide-react';
 import HeroCanvas from './HeroCanvas';
-import Magnetic from './Magnetic';
-import { getHero, getPerson } from '../lib/portfolioData';
+import Magnetic from '../Magnetic/Magnetic';
+import { getHero, getPerson } from '../../lib/portfolioData';
 
 export default function Hero() {
   const hero = getHero();
@@ -12,7 +12,7 @@ export default function Hero() {
   const restOfFirst = person.firstName.slice(1).toUpperCase();
   const lastName = person.lastName.toUpperCase();
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -23,7 +23,7 @@ export default function Hero() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100, damping: 15 } },
   };
