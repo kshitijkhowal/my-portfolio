@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Loader from './components/Loader';
-import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -23,13 +22,10 @@ export default function App() {
       {/* Show portfolio content only after loading is completed */}
       {!loading && (
         <div className="relative min-h-screen selection:bg-accentOrange/30 selection:text-white">
-          {/* 2. Custom Android Theme Cursor */}
-          <CustomCursor />
-
-          {/* 3. Floating Back To Top button */}
+          {/* 2. Floating Back To Top button */}
           <BackToTop />
 
-          {/* 4. Sticky Glass Navbar */}
+          {/* 3. Sticky Glass Navbar */}
           <Navbar />
 
           {/* 5. Main Portfolio sections flow */}

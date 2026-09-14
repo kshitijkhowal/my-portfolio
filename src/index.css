@@ -21,7 +21,22 @@ body {
   background-color: #171717;
   color: #ffffff;
   font-family: 'Inter', sans-serif;
-  cursor: none; /* Hide default cursor to enable custom cursor */
+  cursor: auto;
+}
+
+/* Restore native cursor behavior for legacy custom-cursor utility classes. */
+a.cursor-none,
+button.cursor-none {
+  cursor: pointer !important;
+}
+
+input.cursor-none,
+textarea.cursor-none {
+  cursor: text !important;
+}
+
+.cursor-none:not(a):not(button):not(input):not(textarea) {
+  cursor: default !important;
 }
 
 /* Custom Scrollbar */
@@ -163,16 +178,6 @@ body {
   background: linear-gradient(135deg, #ffffff 0%, #a2f2c8 50%, #3ddc84 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-/* Hide cursor on touch devices */
-@media (hover: none) {
-  body {
-    cursor: auto;
-  }
-  .custom-cursor {
-    display: none !important;
-  }
 }
 
 /* Timeline specific styles */

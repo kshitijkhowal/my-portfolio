@@ -11,6 +11,10 @@ import about from '../../data/About/about.json';
 import nav from '../../data/About/nav.json';
 import skillsDisplay from '../../data/About/skills-display.json';
 import siteContact from '../../data/About/contact.json';
+import brokerAppIcon from '../../data/Assets/Icons/CompanyIcons/BrokerApp/BrokerAppIcon.svg';
+import ambakIcon from '../../data/Assets/Icons/CompanyIcons/Ambak/AmbakIcon.svg';
+import growthMarketersIcon from '../../data/Assets/Icons/CompanyIcons/GrowthMarketers/GrowthMarketersIcon.svg';
+import metroConnectIcon from '../../data/Assets/Icons/ProjectIcons/MetroConnect/MetroConnectIcon.svg';
 
 const MONTHS = [
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -22,6 +26,17 @@ const EMPLOYMENT_LABELS = {
   'intern': 'Intern',
   'intern-to-full-time': 'Intern + Full Time',
   'contract': 'Contract',
+};
+
+const EXPERIENCE_ICONS = {
+  'exp-brokerapp': brokerAppIcon,
+  'exp-ambak': ambakIcon,
+  'exp-growth-marketers': growthMarketersIcon,
+};
+
+const EXPERIENCE_BRAND_COLORS = {
+  'exp-brokerapp': '#C20707',
+  'exp-ambak': '#6632D8',
 };
 
 const socialsMap = Object.fromEntries(
@@ -111,6 +126,8 @@ export function getExperiences() {
     type: EMPLOYMENT_LABELS[exp.employmentType] || exp.employmentType,
     company: exp.company,
     companyUrl: exp.website,
+    icon: EXPERIENCE_ICONS[exp.id],
+    brandColor: EXPERIENCE_BRAND_COLORS[exp.id],
     period: formatDateRange(exp),
     highlights: (exp.bullets || []).map((b) => b.text),
     techStack: exp.techStack || [],
@@ -140,6 +157,7 @@ export function getProjects() {
         id: index,
         rawId: project.id,
         title: project.name === 'MetroConnect' ? 'Metro Connect' : project.name,
+        icon: project.id === 'proj-metroconnect' ? metroConnectIcon : null,
         category: project.category || 'Project',
         tech: project.techStack || [],
         features: (project.bullets || []).map((b) => b.text),

@@ -11,21 +11,30 @@ const GithubIcon = (props) => (
   </svg>
 );
 
-function MetroConnectThumbnail() {
+function MetroConnectThumbnail({ project }) {
   return (
     <div className="relative flex items-center justify-center w-full h-full">
       <div className="absolute w-40 h-40 rounded-full bg-[#3ddc84]/15 blur-[60px]" />
-      <div className="relative w-44 h-80 bg-gradient-to-b from-[#0d1a12] to-[#050f0a] rounded-[2.5rem] border-2 border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.6)] overflow-hidden flex flex-col items-center justify-center gap-5">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-5 bg-[#0a0a0a] rounded-b-2xl z-10" />
-        <div className="w-24 h-24 rounded-[2rem] bg-gradient-to-br from-[#3ddc84] to-[#1a8f52] flex items-center justify-center shadow-[0_0_40px_rgba(61,220,132,0.5)] text-5xl">
-          🚇
+      <div className="relative h-80 w-44 rounded-[2.75rem] border border-white/20 bg-[#080a0c] p-2 shadow-[0_24px_65px_rgba(0,0,0,0.55)]">
+        <div className="relative flex h-full flex-col items-center justify-center overflow-hidden rounded-[2.25rem] bg-[linear-gradient(160deg,rgba(61,220,132,0.42)_0%,rgba(61,220,132,0.12)_42%,#0d1012_78%)]">
+          <div className="absolute left-1/2 top-3 h-3 w-3 -translate-x-1/2 rounded-full bg-black ring-1 ring-white/10" />
+
+          <div className="relative z-10 flex h-24 w-24 items-center justify-center rounded-[2rem] bg-androidGreen shadow-[0_12px_40px_rgba(61,220,132,0.3)]">
+            <img
+              src={project.icon}
+              alt="Metro Connect icon"
+              className="h-14 w-14 object-contain brightness-0 invert"
+            />
+          </div>
+          <p className="relative z-10 mt-5 font-outfit text-base font-bold text-white">
+            Metro Connect
+          </p>
+          <p className="relative z-10 mt-1 text-[9px] font-mono uppercase tracking-[0.2em] text-white/40">
+            Delhi Metro Navigator
+          </p>
+
+          <div className="absolute bottom-4 left-1/2 h-1 w-12 -translate-x-1/2 rounded-full bg-white/25" />
         </div>
-        <div className="flex gap-2">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="w-2 h-2 rounded-full bg-[#3ddc84]/40" />
-          ))}
-        </div>
-        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-10 h-1 bg-white/20 rounded-full" />
       </div>
     </div>
   );
@@ -47,7 +56,7 @@ function DefaultProjectThumbnail() {
 }
 
 function projectThumbnail(project) {
-  if (project.rawId === 'proj-metroconnect') return <MetroConnectThumbnail />;
+  if (project.rawId === 'proj-metroconnect') return <MetroConnectThumbnail project={project} />;
   return <DefaultProjectThumbnail />;
 }
 
