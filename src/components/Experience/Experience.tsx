@@ -38,7 +38,7 @@ export default function Experience() {
             return (
               <article
                 key={exp.id}
-                className="glass-card glass-card-hover relative overflow-hidden rounded-3xl border border-white/[0.07]"
+                className="relative overflow-hidden rounded-3xl border border-white/[0.07] bg-[#202020] shadow-[0_8px_32px_rgba(0,0,0,0.45)] transition-[border-color,box-shadow] duration-300 hover:border-accentOrange/30 hover:shadow-[0_12px_40px_rgba(255,122,0,0.08)]"
               >
                 <div
                   className={`absolute inset-y-0 left-0 w-1 ${

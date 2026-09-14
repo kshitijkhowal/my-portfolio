@@ -28,7 +28,7 @@ export default function ProductPhone({
       className="group/phone flex flex-col items-center gap-3 cursor-none"
     >
       <div
-        className={`relative h-[202px] w-[104px] border border-white/20 bg-[#080a0c] p-[5px] shadow-[0_18px_45px_rgba(0,0,0,0.45)] transition-all duration-300 group-hover/phone:-translate-y-2 group-hover/phone:border-androidGreen/50 group-hover/phone:shadow-[0_22px_55px_rgba(61,220,132,0.12)] ${
+        className={`relative h-[202px] w-[104px] border border-white/20 bg-[#080a0c] p-[5px] shadow-[0_18px_45px_rgba(0,0,0,0.45)] transition-[border-color,box-shadow] duration-300 group-hover/phone:border-androidGreen/50 group-hover/phone:shadow-[0_22px_55px_rgba(61,220,132,0.12)] ${
           isIos ? 'rounded-[28px]' : 'rounded-[20px]'
         }`}
       >
