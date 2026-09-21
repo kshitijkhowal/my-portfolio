@@ -101,15 +101,15 @@ export default function Projects() {
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -20 }}
                             transition={{ duration: 0.3 }}
-                            className="w-full h-full flex flex-col justify-center p-8 text-left"
+                            className="w-full h-full overflow-y-auto p-5 text-left md:p-6"
                           >
-                            <h4 className="text-lg font-outfit font-extrabold text-accentOrange mb-4 flex items-center gap-2">
+                            <h4 className="mb-3 flex items-center gap-2 font-outfit text-base font-extrabold text-accentOrange md:text-lg">
                               <CheckCircle className="w-5 h-5 text-androidGreen" />
                               Core Features
                             </h4>
-                            <ul className="space-y-3">
+                            <ul className="grid grid-cols-1 gap-x-5 gap-y-2 md:grid-cols-2">
                               {project.features.map((feature: string) => (
-                                <li key={feature} className="flex items-start gap-2.5 text-sm text-white/80">
+                                <li key={feature} className="flex items-start gap-2 text-[11px] leading-relaxed text-white/80 md:text-xs">
                                   <span className="w-1.5 h-1.5 rounded-full bg-accentOrange mt-1.5 flex-shrink-0" />
                                   <span>{feature}</span>
                                 </li>
@@ -220,7 +220,8 @@ export default function Projects() {
                   </div>
 
                   <p className="text-white/60 leading-relaxed mb-8">
-                    Built with {project.tech.join(', ')}. Navigate the slides to explore core features and the technical architecture behind this project.
+                    {project.description ||
+                      `Built with ${project.tech.join(', ')}. Navigate the slides to explore its core features and technical architecture.`}
                   </p>
 
                   <div className="flex flex-wrap gap-4 items-center">

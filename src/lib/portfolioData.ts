@@ -153,10 +153,10 @@ export function getProjects() {
         security: 'App sandbox',
       };
       const metroArchitecture = {
-        client: 'Expo, React Native, Expo Location',
-        server: 'On-device graph engine',
-        database: 'Metro network graph (stations & lines)',
-        security: 'Local computation · App sandbox',
+        client: 'Expo 54, React Native 0.81, Expo Router',
+        server: 'Local route, fare & location services',
+        database: 'Static transit data, Redux Persist & Firestore',
+        security: 'Local-first computation · App sandbox',
       };
 
       return {
@@ -168,6 +168,7 @@ export function getProjects() {
           project.id === 'proj-metroconnect'
             ? '/images/metro-connect-banner.jpg'
             : null,
+        description: project.description || null,
         category: project.category || 'Project',
         tech: project.techStack || [],
         features: (project.bullets || []).map((b: { text: string }) => b.text),
