@@ -21,11 +21,11 @@ export default function App() {
 
         <About />
 
-        <Skills />
-
         <Experience />
 
         <Projects />
+        
+        <Skills />
 
         <Achievements />
 

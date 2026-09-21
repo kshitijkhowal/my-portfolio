@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { type ComponentType } from 'react';
 import { motion, type Variants } from 'framer-motion';
 import {
-  Smartphone, Code, Database, Settings, Cpu, ShieldCheck,
+  Smartphone, Code, Database, Settings, Cpu, ShieldCheck, Rocket,
+  Gauge, MousePointer2, Bot, Braces, Flame, Terminal,
   type LucideIcon,
 } from 'lucide-react';
+import {
+  SiReact, SiJavascript, SiTypescript, SiNodedotjs, SiMongodb,
+  SiPostgresql, SiSwagger, SiGoogle, SiSocketdotio, SiPostman,
+} from 'react-icons/si';
+import { FaGitAlt } from 'react-icons/fa';
 import { getSkillGroups } from '../../lib/portfolioData';
 
 const iconMap: Record<string, LucideIcon> = {
@@ -13,6 +19,32 @@ const iconMap: Record<string, LucideIcon> = {
   settings: Settings,
   cpu: Cpu,
   shield: ShieldCheck,
+};
+
+type SkillLogo = ComponentType<{ className?: string }>;
+
+const skillIconMap: Record<string, SkillLogo> = {
+  react: SiReact,
+  expo: Terminal,
+  reanimated: SiReact,
+  javascript: SiJavascript,
+  typescript: SiTypescript,
+  cpp: Braces,
+  nodejs: SiNodedotjs,
+  express: Terminal,
+  mongodb: SiMongodb,
+  postgresql: SiPostgresql,
+  api: SiSwagger,
+  firebase: Flame,
+  google: SiGoogle,
+  socketio: SiSocketdotio,
+  cicd: Rocket,
+  performance: Gauge,
+  postman: SiPostman,
+  git: FaGitAlt,
+  cursor: MousePointer2,
+  claude: Bot,
+  llm: Cpu,
 };
 
 export default function Skills() {
@@ -76,36 +108,20 @@ export default function Skills() {
                   <h4 className="font-outfit font-bold text-lg text-white">{group.category}</h4>
                 </div>
 
-                <div className="flex flex-col gap-4 flex-grow">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
                   {group.skills.map((skill) => (
-                    <div key={skill.name} className="group/skill">
-                      <div className="flex justify-between items-center mb-1.5">
-                        <span className="text-sm font-medium text-white/80 group-hover/skill:text-white transition-colors duration-300">
-                          {skill.name}
-                        </span>
-                        <span className="text-[10px] font-mono tracking-widest uppercase text-white/40 group-hover/skill:text-accentOrange transition-colors duration-300">
-                          {skill.level}
-                        </span>
-                      </div>
-                      <div className="w-full h-[3px] bg-white/5 rounded-full overflow-hidden">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{
-                            width:
-                              skill.level === 'Expert'
-                                ? '90%'
-                                : skill.level === 'Intermediate'
-                                  ? '70%'
-                                  : '55%',
-                          }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 1.2, delay: groupIdx * 0.1, ease: 'easeOut' }}
-                          className={`h-full bg-gradient-to-r ${
-                            groupIdx % 2 === 0
-                              ? 'from-androidGreen to-accentOrange'
-                              : 'from-accentOrange to-androidGreen'
-                          }`}
-                        />
+                    <div
+                      key={skill.name}
+                      className="group/skill flex min-h-20 flex-col items-center justify-center gap-2 rounded-xl border border-white/[0.06] bg-black/15 px-3 py-4 text-center transition-colors duration-300 hover:border-androidGreen/25 hover:bg-white/[0.04]"
+                    >
+                      {(() => {
+                        const SkillIcon = skillIconMap[skill.icon] || Code;
+                        return (
+                          <SkillIcon className="h-7 w-7 text-white/65 transition-colors duration-300 group-hover/skill:text-androidGreen" />
+                        );
+                      })()}
+                      <div className="text-xs font-medium leading-tight text-white/70 transition-colors duration-300 group-hover/skill:text-white">
+                        {skill.name}
                       </div>
                     </div>
                   ))}
