@@ -15,6 +15,9 @@ import brokerAppIcon from '../../data/Assets/Icons/CompanyIcons/BrokerApp/Broker
 import ambakIcon from '../../data/Assets/Icons/CompanyIcons/Ambak/AmbakIcon.svg';
 import growthMarketersIcon from '../../data/Assets/Icons/CompanyIcons/GrowthMarketers/GrowthMarketersIcon.svg';
 import metroConnectIcon from '../../data/Assets/Icons/ProjectIcons/MetroConnect/MetroConnectIcon.svg';
+import dtuIcon from '../assets/education/DTU_logo.png';
+import dbpsIcon from '../assets/education/DEEN_BANDHU_PS_logo.jpeg';
+import dldavIcon from '../assets/education/DLDAV_MS_logo.jpeg';
 
 const MONTHS = [
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -37,6 +40,30 @@ const EXPERIENCE_ICONS: Record<string, string> = {
 const EXPERIENCE_BRAND_COLORS: Record<string, string> = {
   'exp-brokerapp': '#C20707',
   'exp-ambak': '#6632D8',
+};
+
+const EDUCATION_ICONS: Record<string, string> = {
+  'edu-dtu': dtuIcon,
+  'edu-dbps-xii': dbpsIcon,
+  'edu-dldav-x': dldavIcon,
+};
+
+const EDUCATION_BRAND_COLORS: Record<string, string> = {
+  'edu-dtu': '#8B1E2D',
+  'edu-dbps-xii': '#0B7A3A',
+  'edu-dldav-x': '#C41E3A',
+};
+
+const EDUCATION_SHORT_NAMES: Record<string, string> = {
+  'edu-dtu': 'DTU',
+  'edu-dbps-xii': 'DBPS',
+  'edu-dldav-x': 'DL DAV',
+};
+
+const EDUCATION_WEBSITES: Record<string, string | null> = {
+  'edu-dtu': 'https://www.dtu.ac.in/',
+  'edu-dbps-xii': null,
+  'edu-dldav-x': 'https://dldavsb.in/',
 };
 
 const socialsMap: Record<string, any> = Object.fromEntries(
@@ -115,7 +142,27 @@ export function getPerson() {
 }
 
 export function getEducation() {
-  return educationEntries;
+  return educationEntries.map((edu) => {
+    const formerly = edu.institution.match(/\((Formerly [^)]+)\)/i)?.[1] ?? null;
+    const institutionName = edu.institution.replace(/\s*\([^)]+\)\s*$/, '').trim();
+
+    return {
+      id: edu.id,
+      institution: institutionName,
+      formerly,
+      degree: edu.degree,
+      field: edu.field,
+      minor: edu.minor,
+      location: edu.location,
+      gpa: edu.gpa,
+      highlights: edu.highlights || [],
+      period: formatDateRange(edu),
+      icon: EDUCATION_ICONS[edu.id],
+      brandColor: EDUCATION_BRAND_COLORS[edu.id] || '#ff7a00',
+      shortName: EDUCATION_SHORT_NAMES[edu.id] || institutionName,
+      website: EDUCATION_WEBSITES[edu.id] ?? null,
+    };
+  });
 }
 
 export function getPrimaryEducation() {

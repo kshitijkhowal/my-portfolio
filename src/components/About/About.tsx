@@ -1,12 +1,13 @@
 import React from 'react';
 import { motion, type Variants } from 'framer-motion';
-import { MapPin, Code, Cpu, Heart } from 'lucide-react';
-import { getAbout, getPerson, getPrimaryEducation } from '../../lib/portfolioData';
+import { MapPin, Code, Heart } from 'lucide-react';
+import { getAbout, getEducation, getPerson, getPrimaryEducation } from '../../lib/portfolioData';
 
 export default function About() {
   const about = getAbout();
   const person = getPerson();
   const education = getPrimaryEducation();
+  const primaryEducation = getEducation().find((entry) => entry.id === education.id) ?? getEducation()[0];
 
   const cardVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
@@ -130,25 +131,30 @@ export default function About() {
               </div>
             </motion.div>
 
-            <motion.div
+            <motion.a
+              href="#education"
               custom={3}
               variants={cardVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="glass-card glass-card-hover p-6 rounded-2xl flex flex-col gap-4"
+              className="glass-card glass-card-hover p-6 rounded-2xl flex flex-col gap-4 cursor-none"
             >
-              <div className="w-10 h-10 rounded-xl bg-accentOrange/10 flex items-center justify-center">
-                <Cpu className="w-5 h-5 text-accentOrange" />
+              <div className="w-10 h-10 rounded-xl overflow-hidden border border-white/10 bg-white p-0.5">
+                <img
+                  src={primaryEducation.icon}
+                  alt={`${primaryEducation.shortName} emblem`}
+                  className="h-full w-full object-contain"
+                />
               </div>
               <div>
                 <h4 className="text-xs font-mono text-white/40 uppercase mb-1">Education</h4>
                 <p className="text-sm font-outfit font-bold text-white leading-tight">
-                  DTU · {education.degree}
+                  {primaryEducation?.shortName ?? 'DTU'} · {education.degree}
                 </p>
                 <p className="text-xs text-white/40 mt-0.5">{educationLine}</p>
               </div>
-            </motion.div>
+            </motion.a>
 
             <motion.div
               custom={4}

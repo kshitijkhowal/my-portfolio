@@ -38,7 +38,7 @@ export default function Navbar() {
             </span>
           </a>
 
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden xl:flex items-center gap-5">
             {navItems.map((item) => (
               <a
                 key={item.name}
@@ -62,7 +62,7 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <div className="hidden md:block">
+          <div className="hidden xl:block">
             <Magnetic>
               <a
                 href="#contact"
@@ -77,7 +77,7 @@ export default function Navbar() {
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-white/80 hover:text-white hover:bg-white/5 cursor-none"
+            className="xl:hidden p-2 rounded-lg text-white/80 hover:text-white hover:bg-white/5 cursor-none"
             aria-label="Toggle Menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -92,7 +92,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-x-0 top-[70px] z-40 bg-darkBg/95 backdrop-blur-xl border-b border-white/10 md:hidden overflow-hidden"
+            className="fixed inset-x-0 top-[70px] z-40 bg-darkBg/95 backdrop-blur-xl border-b border-white/10 xl:hidden overflow-hidden"
           >
             <div className="px-6 py-8 flex flex-col gap-6">
               {navItems.map((item, idx) => (
