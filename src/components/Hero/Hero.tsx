@@ -1,9 +1,11 @@
 import React from 'react';
 import { motion, type Variants } from 'framer-motion';
 import { FileText, ArrowRight, Mail } from 'lucide-react';
-import HeroCanvas from './HeroCanvas';
 import Magnetic from '../Magnetic/Magnetic';
 import { getHero, getPerson } from '../../lib/portfolioData';
+
+const PORTRAIT_SRC =
+  'https://res.cloudinary.com/dd0hln8f2/image/upload/f_auto,q_auto,w_960/v1784445882/bgKshitij_noName_f54or9.jpg';
 
 export default function Hero() {
   const hero = getHero();
@@ -125,8 +127,20 @@ export default function Hero() {
           transition={{ duration: 1, ease: 'easeOut', delay: 0.5 }}
           className="lg:col-span-5 w-full flex items-center justify-center relative"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-accentOrange/5 to-androidGreen/5 rounded-full blur-[100px] pointer-events-none" />
-          <HeroCanvas />
+          <div className="absolute inset-8 rounded-full bg-accentOrange/15 blur-[90px] pointer-events-none" />
+          <div className="absolute inset-16 rounded-full bg-androidGreen/10 blur-[80px] pointer-events-none" />
+
+          <div className="relative w-full max-w-[380px] aspect-square">
+            <div className="absolute -inset-px rounded-[1.85rem] bg-gradient-to-br from-accentOrange via-white/25 to-androidGreen opacity-90 shadow-[0_0_40px_rgba(255,122,0,0.22)]" />
+            <div className="absolute inset-[3px] rounded-[1.7rem] bg-darkBg" />
+            <img
+              src={PORTRAIT_SRC}
+              alt={`${person.fullName} portrait`}
+              width={760}
+              height={760}
+              className="relative z-10 m-[7px] h-[calc(100%-14px)] w-[calc(100%-14px)] rounded-[1.45rem] object-cover object-[center_18%]"
+            />
+          </div>
         </motion.div>
 
       </div>
